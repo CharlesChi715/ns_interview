@@ -1,8 +1,8 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* browser canvas outside the calculator */
-  --canvas: #ececf1;
+  /* browser canvas outside the calculator: dark slate blue-grey */
+  --canvas: #2e3442;
 
   /* calculator body: black, with light text */
   --panel: #000000;
@@ -49,7 +49,7 @@ body {
   padding: 16px;
   border-radius: 20px;
   background: var(--panel);
-  box-shadow: 0 16px 40px rgb(0 0 0 / 0.35);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.5);
 }
 
 .calculator__title {
