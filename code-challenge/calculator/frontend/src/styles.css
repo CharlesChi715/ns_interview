@@ -43,7 +43,7 @@ body {
 
 .calculator {
   width: 100%;
-  max-width: 360px;
+  max-width: 400px;
   display: grid;
   gap: 12px;
   padding: 16px;
@@ -54,29 +54,29 @@ body {
 
 .calculator__title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--muted);
 }
 
 .display {
   display: grid;
-  gap: 4px;
-  min-height: 112px;
+  gap: 6px;
+  min-height: 136px;
   padding: 8px 4px;
   text-align: right;
 }
 
 .display__expression {
   min-height: 1.6em;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--muted);
   word-break: break-all;
 }
 
 .display__result {
   min-height: 1.3em;
-  font-size: 2rem;
+  font-size: 2.75rem;
   font-weight: 600;
   color: var(--text);
   word-break: break-all;
@@ -85,7 +85,7 @@ body {
 .display__error {
   margin: 0;
   min-height: 1.4em;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: var(--accent);
   text-align: left;
 }
@@ -105,10 +105,10 @@ body {
 
 .key,
 .retry {
-  min-height: 56px;
+  min-height: 64px;
   border: 0;
-  border-radius: 12px;
-  font-size: 1.25rem;
+  border-radius: 14px;
+  font-size: 1.625rem;
   cursor: pointer;
 }
 
@@ -151,8 +151,8 @@ body {
 }
 
 .retry {
-  min-height: 44px;
-  font-size: 1rem;
+  min-height: 48px;
+  font-size: 1.125rem;
 }
 
 .hint {
@@ -164,7 +164,7 @@ body {
 
 .hint__title {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -184,7 +184,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--muted);
 }
 
@@ -195,10 +195,10 @@ body {
 
 kbd {
   display: inline-block;
-  min-width: 26px;
-  padding: 4px 6px;
+  min-width: 30px;
+  padding: 5px 7px;
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   line-height: 1;
   text-align: center;
   color: var(--text);
