@@ -90,6 +90,21 @@ body {
   display: none;
 }
 
+/* the calculating notice stays invisible for 300 ms, so a fast answer never flashes it */
+.display__history--pending {
+  animation: display-appear 0s linear 300ms both;
+}
+
+@keyframes display-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .display__error {
   color: var(--accent);
   text-align: left;

@@ -1,8 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../src/App';
-import { calculate } from '../src/api/client';
+import { calculate, type CalculateResult } from '../src/api/client';
 
 vi.mock('../src/api/client', () => ({ calculate: vi.fn() }));
 const calculateMock = vi.mocked(calculate);
@@ -42,6 +42,24 @@ describe('App', () => {
 
     expect(screen.getByTestId('expression')).toHaveTextContent('−4.49387199274×2');
     expect(screen.getByTestId('expression')).toHaveClass('display__fit-s');
+  });
+
+  it('holds the calculating notice back so a fast answer never flashes it', async () => {
+    let resolve!: (value: CalculateResult) => void;
+    calculateMock.mockReturnValue(new Promise<CalculateResult>((r) => (resolve = r)));
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.keyboard('1+1{Enter}');
+
+    expect(screen.getByTestId('history')).toHaveTextContent('Calculating…');
+    expect(screen.getByTestId('history')).toHaveClass('display__history--pending');
+
+    await act(async () => resolve({ ok: true, result: '2' }));
+
+    await expectResult('2');
+    expect(screen.getByTestId('history')).toHaveTextContent('1+1');
+    expect(screen.getByTestId('history')).not.toHaveClass('display__history--pending');
   });
 
   it('works from the keyboard', async () => {

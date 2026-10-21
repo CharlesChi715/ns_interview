@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 import type { CalculatorError, Status } from '../state/calculatorReducer';
 
@@ -24,7 +24,7 @@ export function fit(text: string): string {
 
 function useKeepEndVisible<T extends HTMLElement>(key: string) {
   const ref = useRef<T>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = ref.current;
     if (!element) return;
     const mark = element.querySelector('mark');
@@ -56,7 +56,11 @@ export function Display({ expression, status, result, error }: DisplayProps) {
   return (
     <section className="display" aria-label="Calculator display">
       <div className="display__top">
-        <div ref={historyRef} className="display__history" data-testid="history">
+        <div
+          ref={historyRef}
+          className={`display__history ${status === 'calculating' ? 'display__history--pending' : ''}`.trim()}
+          data-testid="history"
+        >
           {showingResult ? prettify(expression) : status === 'calculating' ? 'Calculating…' : ''}
         </div>
         <p className="display__error" role="alert" data-testid="error">
