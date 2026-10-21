@@ -62,14 +62,14 @@ body {
 .display {
   display: grid;
   gap: 6px;
-  min-height: 136px;
+  min-height: 148px;
   padding: 8px 4px;
   text-align: right;
 }
 
 .display__expression {
-  min-height: 1.6em;
-  font-size: 1.5rem;
+  min-height: 1.5em;
+  font-size: 2rem;
   color: var(--muted);
   word-break: break-all;
 }
