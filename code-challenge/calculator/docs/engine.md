@@ -26,7 +26,7 @@ primary := NUMBER | '(' expr ')'
 ## Evaluator
 - `decimal.Decimal` with precision 28, so `0.1 + 0.2` gives `0.3`.
 - Division by zero raises `DivisionByZero(position)`.
-- Result is normalised: trailing zeros stripped, no scientific notation.
+- Result rounded half-up to 12 significant digits, trailing zeros stripped; scientific notation below 1e-6 or from 1e12.
 
 Every error carries `position` so the UI can point at the character.
 

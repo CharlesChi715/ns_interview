@@ -28,6 +28,17 @@ describe('App', () => {
     expect(calculateMock).toHaveBeenCalledWith('2+3*4');
   });
 
+  it('keeps a long result on one line by stepping the font down', async () => {
+    calculateMock.mockResolvedValue({ ok: true, result: '-4.49387199274' });
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.keyboard('-99/22.03{Enter}');
+
+    await expectResult('−4.49387199274');
+    expect(screen.getByRole('status')).toHaveClass('display__result--fit-m');
+  });
+
   it('works from the keyboard', async () => {
     calculateMock.mockResolvedValue({ ok: true, result: '11' });
     const user = userEvent.setup();

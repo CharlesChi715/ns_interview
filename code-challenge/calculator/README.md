@@ -41,10 +41,10 @@ CI runs the same steps on every push: [.github/workflows/ci.yml](../../.github/w
 
 | Layer | Tests | What they prove |
 |---|---|---|
-| Engine | 36 | precedence, parentheses, unary minus, decimals, every error with its position, the length and nesting caps |
+| Engine | 44 | precedence, parentheses, unary minus, decimals, 12-digit rounding, every error with its position, the length and nesting caps |
 | API | 13 | 200 body, 400 codes, 422 shapes, generic 500, CORS allowlist |
 | Reducer | 13 | every keypad rule (double dot, operator replacement, result chaining, parentheses) |
-| Client + App | 8 | request body, error passthrough, retry on network failure, keyboard flow |
+| Client + App | 9 | request body, error passthrough, retry on network failure, keyboard flow, one-line results |
 
 ## Why the backend owns the maths
 
@@ -58,7 +58,9 @@ The engine does not use `eval`. It is a hand-written pipeline:
 "2+3*(4-1)" ─▶ tokenizer ─▶ parser (recursive descent) ─▶ evaluator (Decimal, 28 digits) ─▶ "11"
 ```
 
-Numbers travel as strings and are computed with `Decimal`, so `0.1 + 0.2` shows `0.3`.
+Numbers travel as strings and are computed with `Decimal`, so `0.1 + 0.2` shows `0.3`. Results are
+rounded to 12 significant digits, like a pocket calculator, with scientific notation beyond that
+range (`1e+12`, `1e-7`), so an answer always fits on one display line.
 
 ## What is rejected, and why
 

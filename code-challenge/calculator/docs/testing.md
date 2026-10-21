@@ -5,8 +5,8 @@ Part of [system-shape.md](system-shape.md) · tag `[TEST]`
 ```text
       e2e (manual)   real browser: type 2+3*4, Enter, see 14; Playwright is the first add-on
      API (13)        FastAPI TestClient: 200 / 400 / 422 / quiet 500 / CORS
-   reducer (13)      Vitest: every keypad rule; client (4), App (4)
-  engine (36)        pytest, table-driven
+   reducer (13)      Vitest: every keypad rule; client (4), App (5)
+  engine (44)        pytest, table-driven
 ```
 
 ## Engine table (`pytest.mark.parametrize`)

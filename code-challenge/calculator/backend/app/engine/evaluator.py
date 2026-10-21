@@ -1,11 +1,13 @@
-"""AST to Decimal, rendered as a plain string (no float artefacts, no exponent notation)."""
+"""AST to Decimal: 28-digit arithmetic, result rounded to 12 significant digits for display."""
 
-from decimal import Decimal, InvalidOperation, Overflow, localcontext
+from decimal import ROUND_HALF_UP, Context, Decimal, InvalidOperation, Overflow, localcontext
 
 from app.engine.errors import DivisionByZero, NumberOutOfRange
 from app.engine.parser import Node, Number, Unary
 
 PRECISION = 28
+DISPLAY_DIGITS = 12
+DISPLAY_CONTEXT = Context(prec=DISPLAY_DIGITS, rounding=ROUND_HALF_UP)
 
 
 def evaluate(node: Node) -> Decimal:
@@ -20,7 +22,11 @@ def evaluate(node: Node) -> Decimal:
 def format_result(value: Decimal) -> str:
     if value == 0:
         return "0"
-    return format(value.normalize(), "f")
+    shown = DISPLAY_CONTEXT.plus(value).normalize()
+    exponent = shown.adjusted()
+    if exponent < -6 or exponent >= DISPLAY_DIGITS:
+        return format(shown, "e")
+    return format(shown, "f")
 
 
 def _eval(node: Node) -> Decimal:

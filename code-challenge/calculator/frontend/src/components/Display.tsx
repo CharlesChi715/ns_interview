@@ -13,8 +13,16 @@ export function prettify(text: string): string {
   return text.replace(/[*/-]/g, (char) => PRETTY[char]);
 }
 
+function fit(text: string): string {
+  if (text.length <= 12) return '';
+  if (text.length <= 15) return 'display__result--fit-m';
+  if (text.length <= 19) return 'display__result--fit-s';
+  return 'display__result--fit-xs';
+}
+
 export function Display({ expression, status, result, error }: DisplayProps) {
   const showingResult = status === 'result' && result !== null;
+  const shownResult = showingResult ? prettify(result) : '';
   const position = status === 'error' ? (error?.position ?? null) : null;
   const marked = position !== null && position >= 0 && position < expression.length;
 
@@ -45,8 +53,13 @@ export function Display({ expression, status, result, error }: DisplayProps) {
         <div className="display__expression" data-testid="expression">
           {showingResult ? '' : entry}
         </div>
-        <output className="display__result" role="status" aria-live="polite" data-testid="result">
-          {showingResult ? prettify(result) : ''}
+        <output
+          className={`display__result ${fit(shownResult)}`.trim()}
+          role="status"
+          aria-live="polite"
+          data-testid="result"
+        >
+          {shownResult}
         </output>
       </div>
     </section>
