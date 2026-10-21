@@ -1,35 +1,23 @@
 :root {
-  color-scheme: light dark;
-  --bg: #f4f4f6;
-  --panel: #ffffff;
-  --text: #1a1a1e;
-  --muted: #5d5d66;
-  --key: #e9e9ee;
-  --key-hover: #dcdce3;
-  --operator: #dfe8ff;
-  --equals: #2f6fed;
-  --equals-text: #ffffff;
-  --error: #b3261e;
-  --mark: #ffd7d7;
-  --focus: #2f6fed;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
+  color-scheme: dark;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #121216;
-    --panel: #1d1d23;
-    --text: #f2f2f5;
-    --muted: #a5a5b0;
-    --key: #2a2a33;
-    --key-hover: #363641;
-    --operator: #263556;
-    --equals: #4c84ff;
-    --equals-text: #0b0b0f;
-    --error: #ff8a80;
-    --mark: #5a2a2a;
-    --focus: #8fb2ff;
-  }
+  /* 60% dark: surfaces and primary text */
+  --bg: #111114;
+  --panel: #1a1a1f;
+  --text: #f2f2f4;
+
+  /* 30% grey: keys, borders, secondary text */
+  --grey-1: #26262c;
+  --grey-2: #33333b;
+  --grey-3: #42424c;
+  --muted: #a7a7b2;
+
+  /* 10% yellow: primary action, focus and attention */
+  --accent: #f5c518;
+  --accent-text: #161300;
+  --accent-soft: rgb(245 197 24 / 0.22);
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
@@ -54,7 +42,7 @@ body {
   padding: 16px;
   border-radius: 16px;
   background: var(--panel);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
 }
 
 .calculator__title {
@@ -83,6 +71,7 @@ body {
   min-height: 1.3em;
   font-size: 2rem;
   font-weight: 600;
+  color: var(--text);
   word-break: break-all;
 }
 
@@ -90,14 +79,15 @@ body {
   margin: 0;
   min-height: 1.4em;
   font-size: 1rem;
-  color: var(--error);
+  color: var(--accent);
   text-align: left;
 }
 
 .display__mark {
-  background: var(--mark);
-  color: inherit;
-  border-radius: 3px;
+  color: var(--text);
+  background: var(--accent-soft);
+  border-bottom: 2px solid var(--accent);
+  border-radius: 3px 3px 0 0;
 }
 
 .keypad {
@@ -116,22 +106,26 @@ body {
 }
 
 .key {
-  background: var(--key);
+  background: var(--grey-1);
   color: var(--text);
 }
 
 .key:hover {
-  background: var(--key-hover);
+  background: var(--grey-2);
 }
 
 .key:focus-visible,
 .retry:focus-visible {
-  outline: 3px solid var(--focus);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
 .key--operator {
-  background: var(--operator);
+  background: var(--grey-3);
+}
+
+.key--operator:hover {
+  background: var(--grey-2);
 }
 
 .key--control {
@@ -140,8 +134,14 @@ body {
 
 .key--equals,
 .retry {
-  background: var(--equals);
-  color: var(--equals-text);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.key--equals:hover,
+.retry:hover {
+  background: #ffd43b;
 }
 
 .retry {
@@ -153,7 +153,7 @@ body {
   display: grid;
   gap: 8px;
   padding-top: 4px;
-  border-top: 1px solid var(--key);
+  border-top: 1px solid var(--grey-2);
 }
 
 .hint__title {
@@ -196,8 +196,8 @@ kbd {
   line-height: 1;
   text-align: center;
   color: var(--text);
-  background: var(--key);
-  border: 1px solid var(--key-hover);
+  background: var(--grey-1);
+  border: 1px solid var(--grey-2);
   border-bottom-width: 2px;
   border-radius: 6px;
 }
