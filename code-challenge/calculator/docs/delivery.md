@@ -16,7 +16,7 @@ ns_interview/
 
 ## One-command run
 `docker compose up` serves the frontend on 5173 and the backend on 8000, with OpenAPI at `/docs`.
-Without Docker: `uv run fastapi dev` and `npm run dev`.
+Without Docker: `uv run uvicorn app.main:app --reload` and `npm run dev` (Vite proxies `/api`).
 
 ## CI, GitHub Actions
 ```text
@@ -31,4 +31,4 @@ push ─▶ backend:  ruff + pytest  ─┐
 4. What is out of scope.
 5. AI prompts, and what the AI did well or poorly (gist follow-up 4).
 
-Commits: Conventional Commits, small steps matching [build-order.md](build-order.md).
+Commits: imperative subject under 50 characters, body says why; small steps matching [build-order.md](build-order.md).

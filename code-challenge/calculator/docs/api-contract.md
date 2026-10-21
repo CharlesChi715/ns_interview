@@ -27,6 +27,7 @@ Request
 | `UNSUPPORTED_TOKEN` | character outside the allowlist |
 | `EXPRESSION_TOO_LONG` | more than 256 characters |
 | `TOO_DEEP` | parentheses nested deeper than 32 |
+| `NUMBER_OUT_OF_RANGE` | Decimal overflow; defensive, unreachable within the limits |
 
 ## GET /api/v1/health
 `{ "status": "ok" }`, used by the Docker healthcheck and the CI smoke test.

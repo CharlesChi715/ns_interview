@@ -15,7 +15,7 @@ request ─▶ CORS allowlist ─▶ pydantic schema ─▶ guards ─▶ engine
 - `main.py`: app factory, CORS middleware with the frontend origin from env, exception handlers.
 - `schemas.py`: `CalculateRequest`, `CalculateResponse`, `ErrorBody`.
 - `api/calculate.py`: `POST /api/v1/calculate` and `GET /api/v1/health`.
-- Guards before the engine: length ≤ 256, charset allowlist `[0-9.+\-*/() ]`.
+- Guards sit at the engine entry (length ≤ 256) and in the tokenizer (charset allowlist), so the engine is safe on its own; this layer only maps.
 
 ## Error mapping
 | Engine error | HTTP | code |
@@ -24,6 +24,7 @@ request ─▶ CORS allowlist ─▶ pydantic schema ─▶ guards ─▶ engine
 | `DivisionByZero` | 400 | `DIVISION_BY_ZERO` |
 | `UnsupportedToken` | 400 | `UNSUPPORTED_TOKEN` |
 | `TooLong`, `TooDeep` | 400 | `EXPRESSION_TOO_LONG`, `TOO_DEEP` |
+| `NumberOutOfRange` | 400 | `NUMBER_OUT_OF_RANGE` |
 | anything else | 500 | `INTERNAL`, generic message, details only in logs |
 
 Config via env: `CORS_ORIGIN`, `PORT`. No secrets exist in v1.

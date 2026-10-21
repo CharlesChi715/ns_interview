@@ -8,7 +8,7 @@ How to read: every box carries a tag such as `[ENGINE]`. Code blocks cannot hold
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────┐
-│ BROWSER · React 18 + TypeScript · Vite                              [FE] │
+│ BROWSER · React 19 + TypeScript · Vite                              [FE] │
 │                                                                          │
 │   tap / keyboard                                                         │
 │        │                                                                 │
