@@ -36,6 +36,7 @@ describe('App', () => {
     await user.keyboard('2+3*(4-1){Enter}');
 
     await expectResult('11');
+    expect(screen.getByTestId('expression')).toHaveTextContent('2+3×(4−1)');
     expect(calculateMock).toHaveBeenCalledWith('2+3*(4-1)');
   });
 
@@ -52,7 +53,7 @@ describe('App', () => {
 
     expect(await screen.findByText('Cannot divide by zero.')).toBeInTheDocument();
     expect(screen.getByRole('alert')).toHaveTextContent('Cannot divide by zero.');
-    expect(screen.getByTestId('expression').querySelector('mark')).toHaveTextContent('/');
+    expect(screen.getByTestId('expression').querySelector('mark')).toHaveTextContent('÷');
     expect(screen.queryByRole('button', { name: 'Retry' })).not.toBeInTheDocument();
   });
 

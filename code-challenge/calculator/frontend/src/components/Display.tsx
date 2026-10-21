@@ -7,6 +7,12 @@ interface DisplayProps {
   error: CalculatorError | null;
 }
 
+const PRETTY: Record<string, string> = { '*': '×', '/': '÷', '-': '−' };
+
+export function prettify(text: string): string {
+  return text.replace(/[*/-]/g, (char) => PRETTY[char]);
+}
+
 export function Display({ expression, status, result, error }: DisplayProps) {
   const position = status === 'error' ? (error?.position ?? null) : null;
   const marked = position !== null && position >= 0 && position < expression.length;
@@ -18,16 +24,16 @@ export function Display({ expression, status, result, error }: DisplayProps) {
           '0'
         ) : marked ? (
           <>
-            {expression.slice(0, position)}
-            <mark className="display__mark">{expression[position]}</mark>
-            {expression.slice(position + 1)}
+            {prettify(expression.slice(0, position))}
+            <mark className="display__mark">{prettify(expression[position])}</mark>
+            {prettify(expression.slice(position + 1))}
           </>
         ) : (
-          expression
+          prettify(expression)
         )}
       </div>
       <output className="display__result" role="status" aria-live="polite" data-testid="result">
-        {status === 'calculating' ? 'Calculating…' : status === 'result' ? result : ''}
+        {status === 'calculating' ? 'Calculating…' : status === 'result' && result ? prettify(result) : ''}
       </output>
       <p className="display__error" role="alert" data-testid="error">
         {status === 'error' && error ? error.message : ''}
