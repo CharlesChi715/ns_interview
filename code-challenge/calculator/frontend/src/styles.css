@@ -1,21 +1,28 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* 60% dark: surfaces and primary text */
-  --bg: #111114;
-  --panel: #1a1a1f;
-  --text: #f2f2f4;
+  /* browser canvas outside the calculator */
+  --canvas: #ececf1;
 
-  /* 30% grey: keys, borders, secondary text */
-  --grey-1: #26262c;
-  --grey-2: #33333b;
-  --grey-3: #42424c;
-  --muted: #a7a7b2;
+  /* calculator body: black, with light text */
+  --panel: #000000;
+  --text: #f5f5f7;
+  --muted: #9a9aa3;
 
-  /* 10% yellow: primary action, focus and attention */
+  /* grey keys: digits (dark) and controls (light) */
+  --digit: #2c2c31;
+  --digit-hover: #3a3a41;
+  --control: #a5a5ad;
+  --control-hover: #bcbcc4;
+  --control-text: #111114;
+
+  /* yellow keys: operators and equals, plus attention states */
   --accent: #f5c518;
+  --accent-hover: #ffd43b;
   --accent-text: #161300;
   --accent-soft: rgb(245 197 24 / 0.22);
+
+  --focus: #ffffff;
 
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -30,7 +37,7 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: start center;
-  background: var(--bg);
+  background: var(--canvas);
   color: var(--text);
 }
 
@@ -40,9 +47,9 @@ body {
   display: grid;
   gap: 12px;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 20px;
   background: var(--panel);
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.35);
 }
 
 .calculator__title {
@@ -106,32 +113,24 @@ body {
 }
 
 .key {
-  background: var(--grey-1);
+  background: var(--digit);
   color: var(--text);
 }
 
 .key:hover {
-  background: var(--grey-2);
-}
-
-.key:focus-visible,
-.retry:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.key--operator {
-  background: var(--grey-3);
-}
-
-.key--operator:hover {
-  background: var(--grey-2);
+  background: var(--digit-hover);
 }
 
 .key--control {
-  color: var(--muted);
+  background: var(--control);
+  color: var(--control-text);
 }
 
+.key--control:hover {
+  background: var(--control-hover);
+}
+
+.key--operator,
 .key--equals,
 .retry {
   background: var(--accent);
@@ -139,9 +138,16 @@ body {
   font-weight: 600;
 }
 
+.key--operator:hover,
 .key--equals:hover,
 .retry:hover {
-  background: #ffd43b;
+  background: var(--accent-hover);
+}
+
+.key:focus-visible,
+.retry:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .retry {
@@ -153,7 +159,7 @@ body {
   display: grid;
   gap: 8px;
   padding-top: 4px;
-  border-top: 1px solid var(--grey-2);
+  border-top: 1px solid var(--digit-hover);
 }
 
 .hint__title {
@@ -196,8 +202,8 @@ kbd {
   line-height: 1;
   text-align: center;
   color: var(--text);
-  background: var(--grey-1);
-  border: 1px solid var(--grey-2);
+  background: var(--digit);
+  border: 1px solid var(--digit-hover);
   border-bottom-width: 2px;
   border-radius: 6px;
 }
