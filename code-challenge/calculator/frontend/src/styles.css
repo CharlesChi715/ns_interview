@@ -150,14 +150,54 @@ body {
 }
 
 .hint {
+  display: grid;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--key);
+}
+
+.hint__title {
   margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hint__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.hint__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.875rem;
   color: var(--muted);
 }
 
+.hint__keys {
+  display: inline-flex;
+  gap: 4px;
+}
+
 kbd {
+  display: inline-block;
+  min-width: 26px;
+  padding: 4px 6px;
   font-family: inherit;
-  padding: 0 4px;
-  border-radius: 4px;
+  font-size: 0.8125rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--text);
   background: var(--key);
+  border: 1px solid var(--key-hover);
+  border-bottom-width: 2px;
+  border-radius: 6px;
 }

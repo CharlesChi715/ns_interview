@@ -20,6 +20,15 @@ const KEY_ACTIONS: Record<string, CalculatorAction> = {
   Delete: { type: 'CLEAR' },
 };
 
+const SHORTCUTS: { keys: string[]; label: string }[] = [
+  { keys: ['0–9'], label: 'digits' },
+  { keys: ['+', '-', '*', '/'], label: 'operators' },
+  { keys: ['(', ')'], label: 'parentheses' },
+  { keys: ['Enter', '='], label: 'calculate' },
+  { keys: ['Backspace'], label: 'delete' },
+  { keys: ['Esc'], label: 'clear' },
+];
+
 function actionForKey(key: string): CalculatorAction | null {
   if (/^[0-9]$/.test(key)) return { type: 'DIGIT', digit: key };
   return KEY_ACTIONS[key] ?? null;
@@ -78,10 +87,21 @@ export default function App() {
         </button>
       )}
       <Keypad onAction={onAction} />
-      <p className="hint">
-        Keyboard: digits, <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>(</kbd>{' '}
-        <kbd>)</kbd>, <kbd>Enter</kbd> for equals, <kbd>Backspace</kbd>, <kbd>Esc</kbd> to clear.
-      </p>
+      <section className="hint" aria-label="Keyboard shortcuts">
+        <h2 className="hint__title">Keyboard</h2>
+        <ul className="hint__list">
+          {SHORTCUTS.map(({ keys, label }) => (
+            <li key={label} className="hint__item">
+              <span className="hint__keys">
+                {keys.map((key) => (
+                  <kbd key={key}>{key}</kbd>
+                ))}
+              </span>
+              <span>{label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }
