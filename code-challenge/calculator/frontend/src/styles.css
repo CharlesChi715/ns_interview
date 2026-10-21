@@ -77,11 +77,17 @@ body {
 .display__error {
   grid-area: 1 / 1;
   margin: 0;
-  word-break: break-all;
 }
 
 .display__history {
   color: var(--muted);
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.display__history::-webkit-scrollbar {
+  display: none;
 }
 
 .display__error {
@@ -96,28 +102,37 @@ body {
 .display__expression,
 .display__result {
   grid-area: 1 / 1;
-  min-height: 1.2em;
+  min-height: 3.6rem;
+  line-height: 3.6rem;
   font-size: 3rem;
-  line-height: 1.2;
   font-weight: 600;
   color: var(--text);
-  word-break: break-all;
+  white-space: nowrap;
+}
+
+.display__expression {
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.display__expression::-webkit-scrollbar {
+  display: none;
 }
 
 .display__result {
-  white-space: nowrap;
-  min-height: 3.6rem;
+  overflow: hidden;
 }
 
-.display__result--fit-m {
+.display__fit-m {
   font-size: 2.4rem;
 }
 
-.display__result--fit-s {
+.display__fit-s {
   font-size: 1.9rem;
 }
 
-.display__result--fit-xs {
+.display__fit-xs {
   font-size: 1.5rem;
 }
 

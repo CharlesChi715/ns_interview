@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import type { CalculatorError, Status } from '../state/calculatorReducer';
 
 interface DisplayProps {
@@ -13,36 +15,48 @@ export function prettify(text: string): string {
   return text.replace(/[*/-]/g, (char) => PRETTY[char]);
 }
 
-function fit(text: string): string {
+export function fit(text: string): string {
   if (text.length <= 12) return '';
-  if (text.length <= 15) return 'display__result--fit-m';
-  if (text.length <= 19) return 'display__result--fit-s';
-  return 'display__result--fit-xs';
+  if (text.length <= 15) return 'display__fit-m';
+  if (text.length <= 19) return 'display__fit-s';
+  return 'display__fit-xs';
+}
+
+function useKeepEndVisible<T extends HTMLElement>(key: string) {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const mark = element.querySelector('mark');
+    element.scrollLeft = mark ? mark.offsetLeft - element.clientWidth / 2 : element.scrollWidth;
+  }, [key]);
+  return ref;
 }
 
 export function Display({ expression, status, result, error }: DisplayProps) {
   const showingResult = status === 'result' && result !== null;
   const shownResult = showingResult ? prettify(result) : '';
+  const shownEntry = showingResult ? '' : expression === '' ? '0' : prettify(expression);
   const position = status === 'error' ? (error?.position ?? null) : null;
   const marked = position !== null && position >= 0 && position < expression.length;
 
-  const entry =
-    expression === '' ? (
-      '0'
-    ) : marked ? (
-      <>
-        {prettify(expression.slice(0, position))}
-        <mark className="display__mark">{prettify(expression[position])}</mark>
-        {prettify(expression.slice(position + 1))}
-      </>
-    ) : (
-      prettify(expression)
-    );
+  const entryRef = useKeepEndVisible<HTMLDivElement>(`${status}:${expression}`);
+  const historyRef = useKeepEndVisible<HTMLDivElement>(`${status}:${expression}`);
+
+  const entry = marked ? (
+    <>
+      {prettify(expression.slice(0, position))}
+      <mark className="display__mark">{prettify(expression[position])}</mark>
+      {prettify(expression.slice(position + 1))}
+    </>
+  ) : (
+    shownEntry
+  );
 
   return (
     <section className="display" aria-label="Calculator display">
       <div className="display__top">
-        <div className="display__history" data-testid="history">
+        <div ref={historyRef} className="display__history" data-testid="history">
           {showingResult ? prettify(expression) : status === 'calculating' ? 'Calculating…' : ''}
         </div>
         <p className="display__error" role="alert" data-testid="error">
@@ -50,8 +64,12 @@ export function Display({ expression, status, result, error }: DisplayProps) {
         </p>
       </div>
       <div className="display__main">
-        <div className="display__expression" data-testid="expression">
-          {showingResult ? '' : entry}
+        <div
+          ref={entryRef}
+          className={`display__expression ${fit(shownEntry)}`.trim()}
+          data-testid="expression"
+        >
+          {entry}
         </div>
         <output
           className={`display__result ${fit(shownResult)}`.trim()}

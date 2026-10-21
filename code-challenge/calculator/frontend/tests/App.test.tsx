@@ -36,7 +36,12 @@ describe('App', () => {
     await user.keyboard('-99/22.03{Enter}');
 
     await expectResult('−4.49387199274');
-    expect(screen.getByRole('status')).toHaveClass('display__result--fit-m');
+    expect(screen.getByRole('status')).toHaveClass('display__fit-m');
+
+    await user.keyboard('*2');
+
+    expect(screen.getByTestId('expression')).toHaveTextContent('−4.49387199274×2');
+    expect(screen.getByTestId('expression')).toHaveClass('display__fit-s');
   });
 
   it('works from the keyboard', async () => {
