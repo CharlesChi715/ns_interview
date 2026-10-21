@@ -36,7 +36,8 @@ describe('App', () => {
     await user.keyboard('2+3*(4-1){Enter}');
 
     await expectResult('11');
-    expect(screen.getByTestId('expression')).toHaveTextContent('2+3×(4−1)');
+    expect(screen.getByTestId('history')).toHaveTextContent('2+3×(4−1)');
+    expect(screen.getByTestId('expression')).toBeEmptyDOMElement();
     expect(calculateMock).toHaveBeenCalledWith('2+3*(4-1)');
   });
 
