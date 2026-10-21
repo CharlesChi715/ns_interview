@@ -16,11 +16,11 @@
   --control-hover: #bcbcc4;
   --control-text: #111114;
 
-  /* yellow keys: operators and equals, plus attention states */
-  --accent: #f5c518;
-  --accent-hover: #ffd43b;
-  --accent-text: #161300;
-  --accent-soft: rgb(245 197 24 / 0.22);
+  /* orange keys: operators and equals, plus attention states */
+  --accent: #ff9f0a;
+  --accent-hover: #ffb340;
+  --accent-text: #1a1000;
+  --accent-soft: rgb(255 159 10 / 0.22);
 
   --focus: #ffffff;
 
