@@ -1,8 +1,7 @@
 # Calculator
 
 A calculator web application: a React keypad in the browser, every calculation done by a Python
-service. Built for the Nucleus Security coding challenge: *"Build a calculator web application. It
-should include a frontend piece and any backend logic needed to perform the calculations."*
+service.
 
 ## Run it
 
@@ -72,5 +71,3 @@ The design is a set of short pages that all branch from one diagram: start at
 | Numbers | `Decimal`, computed at 28 significant digits, returned at 12 | `0.1 + 0.2` is `0.3`; an answer always fits one display line, scientific notation beyond that |
 | Limits | 256 characters, 32 nesting levels, strict ASCII allowlist, no exponent operator | bounded work per request; `9^9^9` would stall the service without more caps |
 | Errors | `400` with a stable code and position; `500` is generic | the UI can point at the fault; internals stay in server logs |
-| Storage | none | nothing in the brief needs it; a stateless service keeps the run to one command |
-| Toolchain | current majors, locked dependencies, `npm audit` clean, non-root container | the cheap half of a security posture, done from the start |

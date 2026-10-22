@@ -1,14 +1,8 @@
-# Nucleus Security engineering intern, round 2
+## Where each gist section is answered
 
-Two exercises from the interview gist.
-
-```
-.
-├── code-review/                 # Code review of the /webhook PR, plus the AI follow-up answers
-└── code-challenge/calculator/   # Coding challenge: calculator web app (React + FastAPI)
-    ├── README.md                # how to run and test it, what it rejects, what is out of scope
-    └── docs/system-shape.md     # design, start here
-```
-
-Run the calculator with `docker compose up --build` from `code-challenge/calculator/`, or see
-its [README](code-challenge/calculator/README.md) for the two-terminal version.
+| Gist section | File |
+|---|---|
+| Code Review → Code comments | [code-review/Code_review.md](code-review/Code_review.md) |
+| Code Review → Follow-up questions | [code-review/Follow_up_questions.md](code-review/Follow_up_questions.md) |
+| Coding Challenge → Exercise | [code-challenge/calculator/](code-challenge/calculator/) |
+| Coding Challenge → Follow-up questions | [code-challenge/Follow_up_questions.md](code-challenge/Follow_up_questions.md) |
